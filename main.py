@@ -8,6 +8,7 @@ list_admins = []
 list_docents = []
 
 # Funciones de Estudiante
+
 def registrar_estudiante():
     print('Se va a registrar un estudiante')
     name = input('Ingresar el nombre: ')
