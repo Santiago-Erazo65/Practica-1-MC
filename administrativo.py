@@ -6,7 +6,6 @@ class Administrativo(Persona):
         super().__init__(nombre, edad, direccion)  # Llamada al constructor de la clase base
         self.__puesto = puesto
 
-    # Métodos getters y setters para 'puesto'
     def get_puesto(self):
         return self.__puesto
 

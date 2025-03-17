@@ -1,12 +1,13 @@
 from Estudiante import Estudiante
 from administrativo import Administrativo
 from docente import Docente
+from director import Director
 
 # Listas para almacenar los objetos
 list_students = []
 list_admins = []
 list_docents = []
-
+list_directors= []
 # Funciones de Estudiante
 
 def registrar_estudiante():
@@ -125,6 +126,47 @@ def eliminar_docente():
             return
     print(f"Docente '{nombre}' no encontrado.")
 
+
+# Funciones de Director
+def registrar_director():
+    print('Se va a registrar un director')
+    name = input('Ingresar el nombre: ')
+    address = input('Ingresar la dirección: ')
+    age = input('Ingresar la edad: ')
+    area = input('Ingresar el área de gestión: ')
+
+    director = Director(name, age, address, area)  # Creación del objeto Director
+    list_directors.append(director)  # Agregar a la lista
+    print('Director guardado con éxito')
+
+def mostrar_directores():
+    if len(list_directors) == 0:
+        print("No hay directores en la lista.")
+    else:
+        print('Listado de directores:')
+        for director in list_directors:
+            director.mostrar_informacion()
+
+def actualizar_director():
+    nombre = input("Ingresa el nombre del director a actualizar: ")
+    for director in list_directors:
+        if director.get_nombre().lower() == nombre.lower():
+            nuevo_area = input(f"Ingresa el nuevo área de gestión para '{nombre}': ")
+            director.set_area(nuevo_area)
+            print(f"Área de gestión actualizada a '{nuevo_area}' para '{nombre}'.")
+            return
+    print(f"Director '{nombre}' no encontrado.")
+
+def eliminar_director():
+    nombre = input("Ingresa el nombre del director a eliminar: ")
+    for director in list_directors:
+        if director.get_nombre().lower() == nombre.lower():
+            list_directors.remove(director)
+            print(f"Director '{nombre}' eliminado con éxito.")
+            return
+    print(f"Director '{nombre}' no encontrado.")
+
+
 # Menú Estudiantes
 def menu_estudiante():
     while True:
@@ -200,6 +242,31 @@ def menu_docente():
         else:
             print("Opción inválida.")
 
+# Menú director
+def menu_director():
+    while True:
+        print("""
+        --- MENÚ DIRECTORES ---
+        1. Registrar director
+        2. Consultar listado de director
+        3. Actualizar curso de director
+        4. Eliminar estudiante director
+        5. Volver al menú principal
+        """)
+        op = input("Selecciona una opción: ")
+        if op == '1':
+            registrar_director()
+        elif op == '2':
+            mostrar_directores()
+        elif op == '3':
+            actualizar_director()
+        elif op == '4':
+            eliminar_director()
+        elif op == '5':
+            break
+        else:
+            print("Opción inválida.")
+
 # Menú principal
 def menu_principal():
     while True:
@@ -208,7 +275,8 @@ def menu_principal():
         1. Gestionar Estudiantes
         2. Gestionar Administrativos
         3. Gestionar Docentes
-        4. Salir
+        4. Gestionar Directores
+        5. Salir
         """)
         op = input("Selecciona una opción: ")
         if op == '1':
@@ -218,6 +286,8 @@ def menu_principal():
         elif op == '3':
             menu_docente()
         elif op == '4':
+            menu_director()
+        elif op == '5':
             print("Saliendo del sistema...")
             break
         else:
